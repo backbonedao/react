@@ -15,13 +15,13 @@ export default function useAPI(onAdd?) {
                 }
             }
             // Check for dependency functions
-            if (API?.backboneReactOnAdd && API?.backboneReactAll) {
+            if (backbone?.backboneReactOnAdd && backbone?.backboneReactAll) {
                 // Override default listener
-                if (onAdd) API.backboneReactOnAdd(onAdd);
+                if (onAdd) backbone.backboneReactOnAdd(onAdd);
                 // Listen for changes to the apps Data
                 else { 
-                    API.backboneReactOnAdd(async ()=> {
-                        let all = await API.backboneReactAll()
+                    backbone.backboneReactOnAdd(async ()=> {
+                        let all = await backbone.backboneReactAll()
                         setStream({data: all, change: all[all.length - 1]})
                     })
                 }
