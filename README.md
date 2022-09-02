@@ -1,5 +1,5 @@
 # Backbone React hooks
-A React wrapper for making building Backbone React apps easier.
+A React wrapper for building Backbone apps
 
 ## Hooks
 
