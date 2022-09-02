@@ -16,6 +16,9 @@ export default function useAPI(onAdd?) {
             }
             // Check for dependency functions
             if (backbone?.backboneReactOnAdd && backbone?.backboneReactAll) {
+                // // Fetch data
+                // const initStream = async () => { setStream( {data: await backbone.backboneReactAll(), change: null})}
+                // initStream()
                 // Override default listener
                 if (onAdd) backbone.backboneReactOnAdd(onAdd);
                 // Listen for changes to the apps Data
