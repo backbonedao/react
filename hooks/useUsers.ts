@@ -4,19 +4,21 @@ import useBackbone from "./useBackbone";
 export default function useUsers() {
     const backbone = useBackbone();
 
-    let addTrustedUser: Function = backbone?.users?.addTrustedUser;
-    let addUser: Function = backbone?.users?.addUser;
-    let removeTrustedUser: Function = backbone?.users?.removeTrustedUser;
-    let removeUser: Function = backbone?.users?.removeUser;
+    let user = backbone?.user;
+    let addTrustedUser = backbone?.app?.users?.addTrustedUser;
+    let addUser = backbone?.app?.users?.addUser;
+    let removeTrustedUser = backbone?.app?.users?.removeTrustedUser;
+    let removeUser = backbone?.app?.users?.removeUser;
 
     useEffect(()=> {
         if (backbone) {
-            addTrustedUser = backbone.users.addTrustedUser;
-            addUser = backbone.users.addUser;
-            removeTrustedUser = backbone.users.removeTrustedUser;
-            removeUser = backbone.users.removeUser;
+            user = backbone.user;
+            addTrustedUser = backbone.app.users.addTrustedUser;
+            addUser = backbone.app.users.addUser;
+            removeTrustedUser = backbone.app.users.removeTrustedUser;
+            removeUser = backbone.app.users.removeUser;
         }
     }, [backbone])
 
-    return { addUser, addTrustedUser, removeUser, removeTrustedUser }
+    return { user, addUser, addTrustedUser, removeUser, removeTrustedUser }
 }

@@ -1,14 +1,14 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useBackbone from "./useBackbone";
 
 export default function useMeta() {
     const backbone = useBackbone(); 
 
-    const [version, setVersion]: [string | undefined, Dispatch<SetStateAction<string | undefined>>] = useState();
-    const [keys, setKeys] = useState();
+    const [version, setVersion] = useState<string | undefined>();
+    const [keys, setKeys] = useState<any | undefined>();
     
-    const getVersion = async () => setVersion(await backbone.meta.getAppVersion());
-    const getKeys = async () => setKeys(await backbone.meta.getKeys());
+    const getVersion = async () => setVersion(await backbone.app.meta.getAppVersion());
+    const getKeys = async () => setKeys(await backbone.app.meta.getKeys());
 
     useEffect(()=> {
         if (backbone) {

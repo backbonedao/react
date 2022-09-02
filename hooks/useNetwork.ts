@@ -4,17 +4,17 @@ import useBackbone from "./useBackbone";
 export default function useNetwork() {
     const backbone = useBackbone();
 
-    let connect: Function = backbone?.network?.connect;
-    let disconnect: Function = backbone?.network?.disconnect;
-    let connectionId: string = backbone?.network?.getConnectionId();
-    let network = backbone?.network?.getNetwork();
+    let connect = backbone?.app?.network?.connect;
+    let disconnect = backbone?.app?.network?.disconnect;
+    let connectionId = backbone?.app?.network?.getConnectionId();
+    let network = backbone?.app?.network?.getNetwork();
 
     useEffect(()=> {
         if (backbone) {
-            connect = backbone.network.connect;
-            disconnect = backbone.network.disconnect;
-            connectionId = backbone.network.getConnectionId();
-            network = backbone.network.getNetwork();
+            connect = backbone.app.network.connect;
+            disconnect = backbone.app.network.disconnect;
+            connectionId = backbone.app.network.getConnectionId();
+            network = backbone.app.network.getNetwork();
         }
     }, [backbone])
 
