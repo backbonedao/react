@@ -20,12 +20,12 @@ export type Meta = {
     getAppVersion: () => Promise<string>;
     getKeys: () => Promise<any>;
     _allMeta: Function;
-    _getMeta: Function;
+    _getMeta: (key: string) => Promise<any>;
     _setMeta: Function;
 }
 
 export type Network = {
-    connect: (local_only_initiator?: boolean) => Promise<{
+    connect: (initiator?: {local_only: boolean}) => Promise<{
         peers: any[], 
         destroyed: boolean, 
         isListening: boolean, 
@@ -48,10 +48,10 @@ export type Network = {
 }
 
 export type Users = {
-    addTrustedUser: (key: string, partition: any, skip_status_change?: boolean) => boolean;
-    addUser: (key: string, partition: any, skip_status_change?: boolean) => boolean;
-    removeTrustedUser: (key: string, partition: any, destroy?: boolean) => boolean;
-    removeUser: (key: string, partition: any, destroy?: boolean) => boolean;
+    addTrustedUser: (params: {key: string, partition: any, skip_status_change?: boolean}) => boolean;
+    addUser: (params: {key: string, partition: any, skip_status_change?: boolean}) => boolean;
+    removeTrustedUser: (params: {key: string, partition: any, destroy?: boolean}) => boolean;
+    removeUser: (params: {key: string, partition: any, destroy?: boolean}) => boolean;
 }
 
 export default function useBackbone() {
