@@ -1,7 +1,7 @@
 {
   "name": "backbone-react-hooks",
-  "version": "1.0.2",
-  "description": "A React wrapper for building Backbone apps",
+  "version": "2.0.0",
+  "description": "A fully typed React wrapper for building Backbone apps",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/backbonedao/backbone-react-hooks#readme",
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "usehooks-ts": "^2.6.0",
+    "@types/node": "^18.7.16"
   }
 }

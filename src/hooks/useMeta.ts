@@ -4,7 +4,7 @@ import useBackbone from "./useBackbone";
 export default function useMeta() {
     const backbone = useBackbone(); 
 
-    const [id, setId] = useState<string | undefined>();
+    const [appId, setAppId] = useState<string | undefined>();
     const [address, setAddress] = useState<string | undefined>();
     const [description, setDescription] = useState<string | undefined>();
     const [git, setGit] = useState<string | undefined>();
@@ -16,7 +16,7 @@ export default function useMeta() {
     async function getManifest() {
         const manifest = await backbone.app.meta._getMeta("manifest");
 
-        setId(manifest["@id"]);
+        setAppId(manifest["@id"]);
         setAddress(manifest["address"]);
         setDescription(manifest["description"]);
         setGit(manifest["git"]);
@@ -27,8 +27,8 @@ export default function useMeta() {
     };
 
     useEffect(()=> {
-        if (backbone) getManifest();
-    }, [backbone])
+        getManifest();
+    }, [])
 
-    return { id, address, description, git, name, permissions, version, website }
+    return { appId, address, description, git, name, permissions, version, website }
 }
