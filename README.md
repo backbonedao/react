@@ -55,7 +55,7 @@ export function MyComponent() {
 
 Access the Id API for interfacing with Backbone Id
 
-[https://docs.backbone.build/docs/api/id/intro]
+https://docs.backbone.build/docs/api/id/intro
 
 #### Usage
 
@@ -80,7 +80,7 @@ export function MyComponent() {
 
 Allows you to read the app's metadata from backbone.json
 
-[https://docs.backbone.build/docs/api/core/container#network]
+https://docs.backbone.build/docs/api/core/container#network
 
 #### Usage
 
@@ -105,7 +105,7 @@ export function MyComponent() {
 
 Access the app's network
 
-[https://docs.backbone.build/docs/api/core/container#network]
+https://docs.backbone.build/docs/api/core/container#network
 
 #### Usage
 
@@ -121,7 +121,7 @@ export function MyComponent() {
 
 Add or remove users from Backbones Users API
 
-[https://docs.backbone.build/docs/api/core/container#users]
+https://docs.backbone.build/docs/api/core/container#users
 
 #### Usage
 
