@@ -11,7 +11,7 @@ Wraps the Backbone Core Container API in a fully typed and more React friendly w
 #### Usage
 
 ```typescript
-import useBackbone from "backbone-react-hooks/src/hooks/useBackbone";
+import { useBackbone } from "@backbonedao/react-hooks";
 
 export function MyComponent() {
   const backbone = useBackbone();
@@ -36,7 +36,7 @@ async backboneReactAll() {
 #### Usage
 
 ```typescript
-import useAPI from "backbone-react-hooks/src/hooks/useAPI";
+import { useAPI } from "@backbonedao/react-hooks";
 
 export function MyComponent() {
   const { API, stream } = useAPI();
@@ -60,7 +60,7 @@ https://docs.backbone.build/docs/api/id/intro
 #### Usage
 
 ```typescript
-import useId from "backbone-react-hooks/src/hooks/useId";
+import { useId } from "@backbonedao/react-hooks";
 
 export function MyComponent() {
   const { authenticate, id, isAuthenticated, signObject, registerApp } =
@@ -85,7 +85,7 @@ https://docs.backbone.build/docs/api/core/container#network
 #### Usage
 
 ```typescript
-import useMeta from "backbone-react-hooks/src/hooks/useMeta";
+import { useMeta } from "@backbonedao/react-hooks";
 
 export function MyComponent() {
   const {
@@ -110,7 +110,7 @@ https://docs.backbone.build/docs/api/core/container#network
 #### Usage
 
 ```typescript
-import useNetwork from "backbone-react-hooks/src/hooks/useNetwork";
+import { useNetwork } from "@backbonedao/react-hooks";
 
 export function MyComponent() {
   const { connect, disconnect, connectionId, network } = useNetwork();
@@ -126,7 +126,7 @@ https://docs.backbone.build/docs/api/core/container#users
 #### Usage
 
 ```typescript
-import useUsers from "backbone-react-hooks/src/hooks/useUsers";
+import { useUsers } from "@backbonedao/react-hooks";
 
 export function MyComponent() {
   const { addUser, addTrustedUser, removeUser, removeTrustedUser } = useUsers();
