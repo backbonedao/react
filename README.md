@@ -63,7 +63,7 @@ https://docs.backbone.build/docs/api/id/intro
 import { useId } from "@backbonedao/react-hooks";
 
 export function MyComponent() {
-  const { authenticate, id, isAuthenticated, signObject, registerApp } =
+  const { authenticate, authenticateManual, id, isAuthenticated, signObject, registerApp } =
     useId();
 
   useEffect(() => {
