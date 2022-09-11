@@ -8,7 +8,8 @@ export default function useId() {
     const [id, setId] = useState<string | undefined>();
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-    let authenticate = backbone.id?.authenticate || backbone.user;
+    let authenticateManual = backbone.id?.authenticate
+    let authenticate = backbone.user
     let signObject = backbone.id?.signObject;
     let registerApp = backbone.id?.registerApp;
 
@@ -27,5 +28,5 @@ export default function useId() {
         isAuthenticated && !id ? 50 : null
     )
 
-    return { authenticate, id, isAuthenticated, signObject, registerApp }
+    return { authenticateManual, authenticate, id, isAuthenticated, signObject, registerApp }
 }

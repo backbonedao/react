@@ -23,7 +23,7 @@
     "url": "https://github.com/backbonedao/react-hooks/issues"
   },
   "homepage": "https://github.com/backbonedao/react-hooks#readme",
-  "peerDependencies": {
+  "devDependencies": {
     "react": "^18.2.0",
     "usehooks-ts": "^2.6.0",
     "@types/node": "^18.7.16"

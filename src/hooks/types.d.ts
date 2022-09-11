@@ -21,7 +21,8 @@ export type Events = {
 }
 
 export type Id = {
-    authenticate: (params: {name: string, permissions: any[], address: string}) => Promise<boolean>;
+    authenticateManual: (params: {name: string, permissions: any[], address: string}) => Promise<boolean>;
+    authenticate: () => Promise<boolean>;
     isAuthenticated: () => Promise<boolean>;
     registerApp: (manifest: {
         address: string,
