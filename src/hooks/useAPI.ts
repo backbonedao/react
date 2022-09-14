@@ -1,33 +1,56 @@
-import { useEffect, useState } from "react";
-import useBackbone from "./useBackbone";
+import { useBackbone } from "@backbonedao/react-hooks";
+import { useState } from "react";
 
 export default function useAPI() {
     const backbone = useBackbone() 
 
-    const [API, setAPI] = useState<{[key: string]: Function}>({})
-    const [stream, setStream] = useState<{data: any[], change: any}>({data: [], change: null});
+    const [API, setAPI] = useState<{[key: string]: Function}>({});
     
-    // Init API
+    const read = async (key: string) => {
+        if (backbone.app?.backboneReactGet) { 
+            const response = await backbone.app.backboneReactGet(key);
+            if (response) return response;
+            else console.error(`Error: failed to read value from key: ${key}`);
+        }
+        else console.error("backbone-react is missing dependencies in src/app/api.js, learn more at https://github.com/backbonedao/backbone-react/blob/main/README.md#useapi");
+    }
+
+    const query = async ({gt, gte, lt, lte, limit, stream, reverse, include_meta}) => {
+        if (backbone.app?.backboneReactQuery) { 
+            const response = await backbone.app.backboneReactQuery({gt, gte, lt, lte, limit, stream, reverse, include_meta});
+            if (response) return response; 
+            else console.error(`Error: failed to query value`);
+        }
+        else console.error("backbone-react is missing dependencies in src/app/api.js, learn more at https://github.com/backbonedao/backbone-react/blob/main/README.md#useapi"); 
+    }
+
+    const write = async ({key, value}: {key: string, value}) => {
+        if (backbone.app?.backboneReactPut) {
+            await backbone.app.backboneReactPut({key, value});
+            return true;
+        }
+        console.error("backbone-react is missing dependencies in src/app/api.js, learn more at https://github.com/backbonedao/backbone-react/blob/main/README.md#useapi");
+        return false;
+    }
+
     if (Object.keys(API).length < 1) {
-        // Filter user defined API functions
         for (let key of Object.keys(backbone.app)) {
-            if (!["backboneReactOnAdd","backboneReactAll","UI", "_", "network", "meta", "users"].includes(key)) {
+            if (![
+                "backboneReactOnAdd",
+                "backboneReactGetAll",
+                "backboneReactGet",
+                "backboneReactPut",
+                "backboneReactQuery",
+                "UI",
+                "_",
+                "network",
+                "meta",
+                "users"
+            ].includes(key)) {
                 API[key] = backbone.app[key];
             }
         }
     }
 
-    useEffect(()=> {
-        // Check for dependency functions
-        if (backbone.app?.backboneReactOnAdd && backbone.app?.backboneReactAll) {
-            // Listen for changes to the apps Data
-            backbone.app.backboneReactOnAdd(async ()=> {
-                let all = await backbone.app.backboneReactAll()
-                setStream({data: all, change: all[all.length - 1]})
-            })
-            
-        } else console.warn("backbone-react is missing dependencies in src/app/api.js, some feautres will be disabled. Learn more at https://github.com/backbonedao/backbone-react/blob/main/README.md#useapi")
-    }, [])
-    
-    return { API, stream }
+    return { API, read, query, write }
 }

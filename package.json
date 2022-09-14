@@ -1,6 +1,6 @@
 {
   "name": "@backbonedao/react-hooks",
-  "version": "2.1.0",
+  "version": "3.0.1",
   "description": "A fully typed React wrapper for building Backbone apps",
   "main": "index.ts",
   "scripts": {
@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/backbonedao/react-hooks/issues"
   },
-  "homepage": "https://github.com/backbonedao/react-hooks#readme",
+  "homepage": "https://backbone.build",
   "dependencies": {
     "react": "^18.2.0",
     "usehooks-ts": "^2.6.0",
