@@ -41,7 +41,6 @@ export type Id = {
 export type Meta = {
     getAppVersion: () => Promise<string>;
     getKeys: () => Promise<any>;
-    _allMeta: Function;
     _getMeta: (key: string) => Promise<any>;
     _setMeta: Function;
 }
