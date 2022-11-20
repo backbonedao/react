@@ -1,22 +1,17 @@
-import { useBackbone } from "@backbonedao/react-hooks";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import useAPI from "./useAPI";
 
 export default function useStream() {
-    const backbone = useBackbone() 
+  const [stream, setStream] = useState([] as any[]);
+  const change = useMemo(() => stream[stream.length - 1], [stream]);
 
-    const [stream, setStream] = useState([]);
-    const [change, setChange] = useState();
-    
-    useEffect(()=> {
-        if (backbone.app?.backboneReactOnAdd && backbone.app?.backboneReactGetAll) {
-            backbone.app.backboneReactOnAdd(async ()=> {
-                const all = await backbone.app.backboneReactGetAll()
-                setStream(all);
-                setChange(all[all.length - 1]);
-            })
-            
-        } else console.warn("backbone-react is missing dependencies in src/app/api.js, some feautres will be disabled. Learn more at https://github.com/backbonedao/backbone-react/blob/main/README.md#useapi")
-    }, [])
-    
-    return { stream, change }
+  const { API } = useAPI();
+
+  useEffect(() => {
+    API.onAdd(async () => {
+      setStream(await API.getAll());
+    });
+  }, []);
+
+  return { stream, change };
 }

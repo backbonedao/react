@@ -1,34 +1,22 @@
-import { useEffect, useState } from "react";
 import useBackbone from "./useBackbone";
+import { Manifest } from "@backbonedao/types";
+import { useEffect, useState } from "react";
 
 export default function useMeta() {
-    const backbone = useBackbone(); 
+  const backbone = useBackbone();
 
-    const [appId, setAppId] = useState<string | undefined>();
-    const [address, setAddress] = useState<string | undefined>();
-    const [description, setDescription] = useState<string | undefined>();
-    const [git, setGit] = useState<string | undefined>();
-    const [name, setName] = useState<string | undefined>();
-    const [permissions, setPermissions] = useState<any[] | undefined>();
-    const [version, setVersion] = useState<string | undefined>();
-    const [website, setWebsite] = useState<string | undefined>();
+  const [meta, setMeta] = useState<Manifest | undefined>();
 
-    async function getManifest() {
-        const manifest = await backbone.app.meta._getMeta("manifest");
+  async function fetch() {
+    setMeta(await backbone.app.meta._getMeta("manifest"));
+  }
 
-        setAppId(manifest["@id"]);
-        setAddress(manifest["address"]);
-        setDescription(manifest["description"]);
-        setGit(manifest["git"]);
-        setName(manifest["name"]);
-        setPermissions(manifest["permissions"]);
-        setVersion(manifest["version"]);
-        setWebsite(manifest["website"]);
-    };
+  useEffect(() => {
+    fetch();
+  }, []);
 
-    useEffect(()=> {
-        getManifest();
-    }, [])
-
-    return { appId, address, description, git, name, permissions, version, website }
+  return {
+    meta,
+    refetch: fetch,
+  };
 }

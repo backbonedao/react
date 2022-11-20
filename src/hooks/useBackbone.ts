@@ -1,7 +1,5 @@
-import { Backbone } from "./types";
+import { Backbone } from "@backbonedao/types";
 
 export default function useBackbone() {
-    const backbone: Backbone = window["backbone"]; 
-    
-    return backbone;
+  return window["backbone"] as Backbone;
 }

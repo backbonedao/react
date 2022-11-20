@@ -1,30 +1,29 @@
-import { useBackbone } from "@backbonedao/react-hooks";
-import { useState } from "react";
+import { Query } from "@backbonedao/types";
+import { useEffect, useState } from "react";
+import useAPI from "./useAPI";
 
-export default function useQuery() {
-    const backbone = useBackbone() 
+export default function useQuery(params: Query) {
+  const [data, setData] = useState<any>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-    const [data, setData] = useState<any>();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+  const { API } = useAPI();
 
-    const query = async ({gt, gte, lt, lte, limit, stream, reverse, include_meta}) => {
-        if (backbone.app?.backboneReactQuery) { 
-            const response = await backbone.app.backboneReactQuery({gt, gte, lt, lte, limit, stream, reverse, include_meta});
+  async function query() {
+    const response = await API.query(params);
 
-            if (response) setData(response); 
-            else {
-                console.error(`Error: failed to query values`);
-                setError(true);
-            }
-            setLoading(false);
-        }
-        else {
-            console.error("backbone-react is missing dependencies in src/app/api.js, learn more at https://github.com/backbonedao/backbone-react/blob/main/README.md#useapi");
-            setError(true);
-            setLoading(false);
-        }  
+    if (response) setData(response);
+    else {
+      console.error(`Error: failed to query values`);
+      setError(true);
     }
-    
-    return { query, loading, data, error }
+
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    query();
+  }, []);
+
+  return { loading, data, error };
 }

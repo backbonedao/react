@@ -1,14 +1,15 @@
 {
-  "name": "@backbonedao/react-hooks",
-  "version": "3.0.1",
+  "name": "@backbonedao/react",
+  "version": "0.0.1",
   "description": "A fully typed React wrapper for building Backbone apps",
   "main": "index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "homepage": "https://backbone.build",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/backbonedao/react-hooks.git"
+    "url": "git+https://github.com/backbonedao/react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/backbonedao/react/issues"
   },
   "keywords": [
     "backbone",
@@ -17,15 +18,13 @@
     "react",
     "hooks"
   ],
-  "author": "Sam Scolari",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/backbonedao/react-hooks/issues"
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@backbonedao/types": "^1.0.4",
+    "@types/react": "^18.0.25"
   },
-  "homepage": "https://backbone.build",
   "dependencies": {
     "react": "^18.2.0",
-    "usehooks-ts": "^2.6.0",
-    "@types/node": "^18.7.16"
+    "usehooks-ts": "^2.6.0"
   }
 }

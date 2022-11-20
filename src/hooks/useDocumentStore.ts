@@ -1,55 +1,31 @@
-import { useState } from "react";
+import { Query } from "@backbonedao/types";
+import useAPI from "./useAPI";
 
-export type Omit<A extends object, K extends string> = Pick<A, Exclude<keyof A, K>>
+export default function useDocumentStore(db: string) {
+  const { API } = useAPI();
 
-class DB {
-    path: string = "";
+  function collection(_path, _name) {
+    const path = `${_path}:${_name}`;
 
-    constructor(_path) {    
-        if (_path) this.path = _path;
-    }
+    return {
+      document: (name) => document(path, name),
+      readAll: () => API.query({ gt: path, lt: `${path}~` }),
+      query: (params: Query) => API.query(params),
+    };
+  }
 
-    collection(name: string) {
-        let newPath;
-        if (this.path) newPath = `${this.path}:${name}:`;
-        else newPath = `${this.path}${name}:`;
-        return new DB(newPath);
-    }
+  function document(_path, _name) {
+    const path = `${_path}:${_name}`;
 
-    document(name: string): Omit<DB, 'query' | 'getAll'> {
-        let newPath;
-        if (this.path[this.path.length - 1] !== ":") newPath = `${this.path.substring(0, this.path.lastIndexOf(":"))}:${name}`
-        else newPath= `${this.path}${name}`;
-        return new DB(newPath);
-    }
+    return {
+      collection: (name) => collection(path, name),
+      read: () => API.get(path),
+      write: (value) => API.put({ key: path, value }),
+    };
+  }
 
-    async read() { 
-        let response = {
-            key: this.path,
-        }
-        response["value"] = await window["backbone"].app.backboneReactGet(this.path);
-        return response;
-    }
-
-    async readAll() {
-        let response = {
-            key: this.path,
-        }
-        response["value"] = await window["backbone"].app.backboneReactQuery({gt: this.path, lt: `${this.path}~`});
-        return response;
-    }
-
-    async query({gt, gte, lt, lte, limit, stream, reverse, include_meta}) {
-        return window["backbone"].app.backboneReactQuery({gt, gte, lt, lte, limit, stream, reverse, include_meta});
-    }
-
-    async write(value) { 
-        return window["backbone"].app.backboneReactPut({key: this.path, value: value});
-    }
-}
-
-export default function useDocumentStore() {
-    const [db, setDb] = useState(new DB(""));
-    
-    return db 
+  return {
+    collection: (name) => collection(db, name),
+    document: (name) => document(db, name),
+  };
 }

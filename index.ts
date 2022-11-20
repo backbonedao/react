@@ -8,6 +8,7 @@ import useRead from "./src/hooks/useRead";
 import useWrite from "./src/hooks/useWrite";
 import useQuery from "./src/hooks/useQuery";
 import useDocumentStore from "./src/hooks/useDocumentStore";
+import useEvents from "./src/hooks/useEvents";
 
 export {
   useAPI,
@@ -20,4 +21,5 @@ export {
   useWrite,
   useQuery,
   useDocumentStore,
+  useEvents,
 };

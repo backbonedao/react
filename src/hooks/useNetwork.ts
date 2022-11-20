@@ -3,21 +3,26 @@ import { useInterval } from "usehooks-ts";
 import useBackbone from "./useBackbone";
 
 export default function useNetwork() {
-    const backbone = useBackbone();
+  const backbone = useBackbone();
 
-    const connect = backbone.app.network.connect;
-    const disconnect = backbone.app.network.disconnect;
+  const getConnectionId = backbone.app.network.getConnectionId;
+  const getNetwork = backbone.app.network.getNetwork;
 
-    const [connectionId, setConnectionId] = useState(backbone.app.network.getConnectionId());
-    const [network, setNetwork] = useState(backbone.app.network.getNetwork());
+  const [connectionId, setConnectionId] = useState(getConnectionId());
+  const [network, setNetwork] = useState(getNetwork());
 
-    useInterval(
-        () => {
-            if (!connectionId) setConnectionId(backbone.app.network.getConnectionId());
-            if (!network) setNetwork(backbone.app.network.getNetwork());
-        },
-        !connectionId || !network ? 50 : null
-    )
+  useInterval(
+    () => {
+      if (!connectionId()) setConnectionId(getConnectionId());
+      if (!network) setNetwork(getNetwork());
+    },
+    !connectionId() || !network ? 50 : null
+  );
 
-    return { connect, disconnect, connectionId, network }
+  return {
+    connect: backbone.app.network.connect,
+    disconnect: backbone.app.network.disconnect,
+    connectionId,
+    network,
+  };
 }
