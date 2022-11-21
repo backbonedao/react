@@ -1,6 +1,6 @@
 {
   "name": "@backbonedao/react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A fully typed React wrapper for building Backbone apps",
   "main": "index.ts",
   "homepage": "https://backbone.build",

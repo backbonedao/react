@@ -9,6 +9,7 @@ import useWrite from "./src/hooks/useWrite";
 import useQuery from "./src/hooks/useQuery";
 import useDocumentStore from "./src/hooks/useDocumentStore";
 import useEvents from "./src/hooks/useEvents";
+import useStream from "./src/hooks/useStream";
 
 export {
   useAPI,
@@ -22,4 +23,5 @@ export {
   useQuery,
   useDocumentStore,
   useEvents,
+  useStream,
 };
